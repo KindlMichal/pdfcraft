@@ -4141,6 +4141,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "pdfcraft-ffi"
+version = "0.8.0"
+dependencies = [
+ "base64 0.22.1",
+ "libloading",
+ "pdfcraft-automation",
+ "pdfcraft-cos",
+ "png 0.18.1",
+ "serde_json",
+ "tempfile",
+]
+
+[[package]]
 name = "pdfcraft-filters"
 version = "0.8.0"
 dependencies = [

@@ -1,0 +1,39 @@
+[package]
+name = "pdfcraft-ffi"
+description = "PdfCraft as a C library: the headless automation tools behind a small C ABI, for C# (P/Invoke), C and C++ hosts"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[lib]
+# `cdylib` is the deliverable (pdfcraft_ffi.dll / libpdfcraft_ffi.dylib / libpdfcraft_ffi.so);
+# `rlib` lets the integration tests call the exported functions directly.
+crate-type = ["cdylib", "rlib"]
+
+# This crate is the one deliberate exception to the workspace's `unsafe_code = "forbid"`
+# (AGENTS.md §4): a C ABI cannot be exported without `#[unsafe(no_mangle)]`, and a pointer a
+# C# host hands in cannot be read without `unsafe`. The exception is confined to this crate and
+# to the boundary itself: every `unsafe` block names the invariant it relies on, the body of
+# every export runs under `catch_unwind`, and everything behind the boundary is the ordinary,
+# `forbid`-checked workspace. Mirror the workspace's other lints by hand, since a crate-level
+# `[lints]` table replaces `workspace = true` wholesale.
+[lints.rust]
+unsafe_code = "allow"
+unsafe_op_in_unsafe_fn = "deny"
+
+[lints.clippy]
+dbg_macro = "warn"
+todo = "warn"
+undocumented_unsafe_blocks = "deny"
+
+[dependencies]
+pdfcraft-automation = { workspace = true }
+serde_json = { workspace = true }
+base64 = "0.22"
+
+[dev-dependencies]
+libloading = "0.8"
+png = "0.18"
+pdfcraft-cos = { workspace = true }
+tempfile = "3.27"

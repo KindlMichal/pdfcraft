@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!-- The marshalling code [LibraryImport] generates is unsafe; PdfCraft.cs itself has no unsafe block. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- AnyCPU: the process architecture decides which native build is loaded (x64 on Windows x64). -->
+    <!-- Run on a newer installed runtime when 8.0 is not present. -->
+    <RollForward>Major</RollForward>
+  </PropertyGroup>
+
+  <!-- Copy the native library next to the executable when it has been built for this platform:
+       cargo build, release profile, package pdfcraft-ffi (from the repository root) -->
+  <ItemGroup>
+    <None Include="../../../../target/release/pdfcraft_ffi.dll" Condition="Exists('../../../../target/release/pdfcraft_ffi.dll')" CopyToOutputDirectory="PreserveNewest" Link="pdfcraft_ffi.dll" />
+    <None Include="../../../../target/release/libpdfcraft_ffi.dylib" Condition="Exists('../../../../target/release/libpdfcraft_ffi.dylib')" CopyToOutputDirectory="PreserveNewest" Link="libpdfcraft_ffi.dylib" />
+    <None Include="../../../../target/release/libpdfcraft_ffi.so" Condition="Exists('../../../../target/release/libpdfcraft_ffi.so')" CopyToOutputDirectory="PreserveNewest" Link="libpdfcraft_ffi.so" />
+  </ItemGroup>
+
+</Project>
