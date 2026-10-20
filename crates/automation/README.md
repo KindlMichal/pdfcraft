@@ -15,7 +15,7 @@ tools() -> Vec<ToolDef>                                  // name, title, descrip
 mcp::McpServer::new(a).serve(stdin, stdout)?             // newline-delimited JSON-RPC 2.0
 ```
 
-`Content` is `Json(Value)` or `Png { data, width, height }`. Errors are `UnknownTool`, `InvalidArgs` (the call didn't match the schema) or `Failed` (a readable message for the agent).
+`Content` is `Json(Value)` or `Png { data, width, height }`. Hosts in other languages reach the same table through the C library in `apps/pdfcraft-ffi` (C#, C, C++). Errors are `UnknownTool`, `InvalidArgs` (the call didn't match the schema) or `Failed` (a readable message for the agent).
 
 ## Conventions
 

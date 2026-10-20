@@ -87,6 +87,7 @@ pub const TABLE: &[(&str, Class)] = &[
     // L8 apps + tooling
     ("pdfcraft", Class::Exempt),
     ("cli", Class::Exempt),
+    ("ffi", Class::Exempt),
     ("web", Class::Exempt),
     ("xtask", Class::Exempt),
 ];
